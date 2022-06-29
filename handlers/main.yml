@@ -1,0 +1,31 @@
+---
+
+- name: enable lvm2-monitor
+  service:
+    name: lvm2-monitor
+    enabled: yes
+
+- name: disable lvm2-monitor
+  service:
+    name: lvm2-monitor
+    enabled: no
+
+- name: start lvm2-monitor
+  service:
+    name: lvm2-monitor
+    state: started
+
+- name: stop lvm2-monitor
+  service:
+    name: lvm2-monitor
+    state: stopped
+
+- name: restart lvm2-monitor
+  service:
+    name: lvm2-monitor
+    state: restarted
+
+- name: reload lvm2-monitor
+  service:
+    name: lvm2-monitor
+    state: reloaded

@@ -1,0 +1,36 @@
+---
+
+- name: Install lvm packages
+  include_tasks: "{{ ansible_pkg_mgr }}.yml"
+
+- name: Create LVG
+  lvg:
+    pvs: "{{ PV_DEVICES }}"
+    vg: "{{ VG_NAME }}"
+
+- name: Create thin pools
+  lvol:
+    vg: "{{ VG_NAME }}"
+    thinpool: "{{ item.name }}"
+    size: "{{ item.size }}"
+    shrink: "{{ item.shrink if item.shrink is defined else 'no' }}"
+  loop: "{{ THIN_POOLS }}"
+  when: THIN_POOLS is defined
+
+- name: Create normal LVs
+  lvol:
+    vg: "{{ VG_NAME }}"
+    lv: "{{ item.name }}"
+    size: "{{ item.size }}"
+  loop: "{{ THICK_LVS }}"
+  when: THICK_LVS is defined
+
+- name: Create thin LVs
+  lvol:
+    vg: "{{ VG_NAME }}"
+    lv: "{{ item.name }}"
+    size: "{{ item.size }}"
+    thinpool: "{{ item.thinpool }}"
+  loop: "{{ THIN_LVS }}"
+  when: THIN_LVS is defined
+
