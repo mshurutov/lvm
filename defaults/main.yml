@@ -1,0 +1,4 @@
+---
+
+# Defaults for LVM role
+lvm_packages: "sys-fs/lvm2"
