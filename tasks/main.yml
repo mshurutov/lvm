@@ -14,23 +14,23 @@
     package: "{{ lvm_packages }}"
     state: present
   notify:
-    - enable lvm2-monitor
+    - Enable lvm2-monitor
   tags: lvm_init
 
 - name: Start lvm2-monitor
-  service:
+  ansible.builtin.service:
     name: lvm2-monitor
     state: restarted
   tags: lvm_init
 
 - name: Create LVG
-  lvg:
+  community.general.lvg:
     pvs: "{{ PV_DEVICES }}"
     vg: "{{ VG_NAME }}"
   tags: lvm_vg
 
 - name: Create thin pools
-  lvol:
+  community.general.lvol:
     vg: "{{ VG_NAME }}"
     thinpool: "{{ item.name }}"
     size: "{{ item.size }}"
@@ -40,7 +40,7 @@
   tags: lvm_thinpool
 
 - name: Create normal LVs
-  lvol:
+  community.general.lvol:
     vg: "{{ VG_NAME }}"
     lv: "{{ item.name }}"
     size: "{{ item.size }}"
@@ -49,7 +49,7 @@
   tags: lvm_lv
 
 - name: Create thin LVs
-  lvol:
+  community.general.lvol:
     vg: "{{ VG_NAME }}"
     lv: "{{ item.name }}"
     size: "{{ item.size }}"

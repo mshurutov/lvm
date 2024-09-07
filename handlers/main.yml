@@ -1,31 +1,31 @@
 ---
-
-- name: enable lvm2-monitor
-  service:
+# Handlers for lvm role
+- name: Enable lvm2-monitor
+  ansible.builtin.service:
     name: lvm2-monitor
-    enabled: yes
+    enabled: true
 
-- name: disable lvm2-monitor
-  service:
+- name: Disable lvm2-monitor
+  ansible.builtin.service:
     name: lvm2-monitor
-    enabled: no
+    enabled: false
 
-- name: start lvm2-monitor
-  service:
+- name: Start lvm2-monitor
+  ansible.builtin.service:
     name: lvm2-monitor
     state: started
 
-- name: stop lvm2-monitor
-  service:
+- name: Stop lvm2-monitor
+  ansible.builtin.service:
     name: lvm2-monitor
     state: stopped
 
-- name: restart lvm2-monitor
-  service:
+- name: Restart lvm2-monitor
+  ansible.builtin.service:
     name: lvm2-monitor
     state: restarted
 
-- name: reload lvm2-monitor
-  service:
+- name: Reload lvm2-monitor
+  ansible.builtin.service:
     name: lvm2-monitor
     state: reloaded
